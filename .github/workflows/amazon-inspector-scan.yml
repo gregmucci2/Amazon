@@ -18,7 +18,7 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Run Amazon Inspector vulnerability scan
         uses: aws-actions/vulnerability-scan-github-action-for-amazon-inspector@v1.1.2
