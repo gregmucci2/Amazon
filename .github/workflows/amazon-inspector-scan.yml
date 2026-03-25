@@ -11,6 +11,7 @@ on:
 permissions:
   contents: read
   security-events: write
+  checks: write
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -33,12 +34,22 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
-      - name: List generated files
-        run: ls -la inspector* 2>/dev/null || echo "No inspector files found"
-      
-      - name: Upload scan results to GitHub Security
-        if: hashFiles('inspector_scan_*.sarif') != ''
-        uses: github/codeql-action/upload-sarif@v4
+      - name: Upload scan results as artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
         with:
-          sarif_file: inspector_scan_*.sarif
-          category: amazon-inspector
+          name: amazon-inspector-results
+          path: |
+            inspector_scan_*.json
+            inspector_scan_*.csv
+            inspector_scan_*.md
+          retention-days: 30
+      
+      - name: Display scan summary
+        if: always()
+        run: |
+          echo "## Amazon Inspector Scan Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f inspector_scan_*.md ]; then
+            cat inspector_scan_*.md >> $GITHUB_STEP_SUMMARY
+          fi
