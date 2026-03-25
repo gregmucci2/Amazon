@@ -33,8 +33,11 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
+      - name: List generated files
+        run: ls -la inspector* 2>/dev/null || echo "No inspector files found"
+      
       - name: Upload scan results to GitHub Security
-        if: always()
+        if: hashFiles('inspector_scan_*.sarif') != ''
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: inspector_scan_*.sarif
