@@ -30,9 +30,9 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
-      - name: Upload scan results
-        if: always()
-        uses: github/codeql-action/upload-sarif@v2
+      - name: Upload scan results to GitHub Security
+        if: success()
+        uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: inspector-results.sarif
+          sarif_file: ${{ github.workspace }}/inspector-results.sarif
           category: amazon-inspector
