@@ -12,6 +12,27 @@
             <artifactId>spring-boot-starter</artifactId>
             <version>2.5.0</version>
         </dependency>
+        
+        <!-- Vulnerable Log4j 2 - CVE-2021-44228 (Log4Shell) -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.14.1</version>
+        </dependency>
+        
+        <!-- Vulnerable Jackson Databind - CVE-2017-7525 -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.9</version>
+        </dependency>
+        
+        <!-- Vulnerable Apache Commons Collections - CVE-2015-6420 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
     </dependencies>
 
     <build>
