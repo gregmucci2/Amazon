@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v3
       
       - name: Run Amazon Inspector vulnerability scan
-        uses: aws-actions/vulnerability-scan-github-action-for-amazon-inspector@v1.8.5
+        uses: aws-actions/vulnerability-scan-github-action-for-amazon-inspector@v1.1.2
         with:
           artifact_type: archive
           artifact_path: .
